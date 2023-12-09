@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  root 'products#index'
+  get '/about', to: 'about#index'
+  get 'products/show'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -9,4 +12,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  resources :products, only: %i[index show]
 end

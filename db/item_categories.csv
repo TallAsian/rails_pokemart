@@ -29,6 +29,7 @@ id,pocket_id,identifier
 28,2,pp-recovery
 29,2,revival
 30,2,status-cures
+31,null,null
 32,1,mulch
 33,3,special-balls
 34,3,standard-balls
