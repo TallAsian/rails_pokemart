@@ -1,2 +1,7 @@
+# app/controllers/about_controller.rb
 class AboutController < ApplicationController
-end
+    def index
+      @about_page = AboutPage.first
+    end
+  end
+  
