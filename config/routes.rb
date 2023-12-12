@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :products, only: %i[index show] do
     collection do
       get "search"
+      get "recently_updated"
     end
   end
   resources :categories, only: %i[index show]

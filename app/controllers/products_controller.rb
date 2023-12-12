@@ -18,4 +18,14 @@ class ProductsController < ApplicationController
       @pokemon_products = Product.where("prod_name LIKE ?", wildcard_search).page(params[:page]).per(30)
     end
   end
+  def recently_added
+    @pokemon_products = Product.includes(image_attachment: :blob)
+                              .where("created_at >= ?", 3.days.ago)
+                              .order(created_at: :desc)
+                              .page(params[:page])
+                              .per(30)
+    render :index
+  end
+
+  
 end
