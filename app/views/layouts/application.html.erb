@@ -26,6 +26,7 @@
     <div class="search">
       <%= form_with(url: search_products_path, method: :get, local: true) do %>
         <%= text_field_tag(:keywords, nil, class: "search-input", placeholder: "Search item") %>
+        <%= collection_select(:search, :cat_id, Category.all, :id, :cat_name, { prompt: "Select category" }, class: "search-dropdown") %>
         <%= submit_tag("Search", class: "search-button") %>
       <% end %>     
     </div>
