@@ -27,5 +27,12 @@ class ProductsController < ApplicationController
     render :index
   end
 
-  
+  def recently_updated
+    @pokemon_products = Product.includes(image_attachment: :blob)
+                              .where("updated_at >= ?", 3.days.ago)
+                              .order(updated_at: :desc)
+                              .page(params[:page])
+                              .per(30)
+    render :index
+  end
 end
