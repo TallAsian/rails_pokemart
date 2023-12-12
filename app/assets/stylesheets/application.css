@@ -122,23 +122,24 @@
   }
   
   .search{
-    margin: 5px;
-    padding: 10px;
+    margin: 5px !important;
+    padding: 10px !important;
   }
 
   .search-input {
-    padding: 5px;
-    border: 2px solid #010101;
-    border-radius: 5px;
+    padding: 5px !important;
+    border: 2px solid #010101 !important;
+    border-radius: 5px !important;
+    width: 200px !important;
   }
   
   .search-button {
-    background-color: #e74c3c;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
+    background-color: #e74c3c !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 5px !important;
+    padding: 5px 10px !important;
+    cursor: pointer !important;
   }
   
   .search-dropdown {

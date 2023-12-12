@@ -1,4 +1,5 @@
-<h1><%= @pokemon_category.cat_name %></h1>
+<h1>Search results for: <%= params[:keywords] %></h1>
+
 <div>
     <ol class="pokemon-container">
         <% @pokemon_products.each do |prod| %>

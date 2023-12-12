@@ -4,5 +4,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-  end
+    @pokemon_category = Category.find(params[:id])
+    @pokemon_products = @pokemon_category.products.page(params[:page]).per(9)
+  end  
 end

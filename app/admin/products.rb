@@ -5,7 +5,7 @@ ActiveAdmin.register Product do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :prod_name, :cost, :category_id, :image
+  permit_params :prod_name, :cost, :category_id, :image, :description
   
   filter :category, collection: -> { Category.pluck(:cat_name, :id) }, label: 'Category'
   filter :prod_name, label: 'Product Name', as: :string
@@ -18,6 +18,7 @@ ActiveAdmin.register Product do
     selectable_column
     id_column
     column :prod_name
+    column :description
     column :cost
     column :category do |product|
       link_to product.category.cat_name, admin_category_path(product.category) if product.category
@@ -30,6 +31,7 @@ ActiveAdmin.register Product do
   show title: proc { |product| product.prod_name } do
     attributes_table do
       row :prod_name
+      row :description
       row :cost
       row :category do |product|
         link_to product.category.cat_name, admin_category_path(product.category) if product.category

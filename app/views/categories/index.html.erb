@@ -4,7 +4,9 @@
     <ol class="pokemon-container">
         <% @pokemon_categories.each do |cat| %>
             <li class="pokemon-name">
-                <%= cat.cat_name.gsub('-', ' ') %>
+                <%= link_to (cat) do %>
+                    <%= cat.cat_name.gsub('-', ' ') %>
+                <% end %>
             </li>
         <% end %>
     </ol>
