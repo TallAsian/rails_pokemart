@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'categories/index'
+  get 'categories/show'
   root 'products#index'
   get '/about', to: 'about#index'
   get 'products/show'
@@ -14,4 +16,5 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   resources :products, only: %i[index show]
+  resources :categories, only: %i[index show]
 end

@@ -1,0 +1,14 @@
+<h1>Pokemart Categories</h1>
+
+<div>
+    <ol class="pokemon-container">
+        <% @pokemon_categories.each do |cat| %>
+            <li class="pokemon-name">
+                <%= cat.cat_name.gsub('-', ' ') %>
+            </li>
+        <% end %>
+    </ol>
+    <div class="pagination">
+        <%= paginate @pokemon_categories %>
+    </div>
+</div>

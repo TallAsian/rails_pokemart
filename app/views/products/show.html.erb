@@ -1,2 +1,10 @@
-<h1>Products#show</h1>
-<p>Find me in app/views/products/show.html.erb</p>
+<h1><%= @pokemon_products.prod_name %></h1>
+
+<div class="pokemon-container">
+    <div class="grid-container">
+        <div class="pokemon-description">
+            <%= image_tag @pokemon_products.image, class: "pokemon-image", alt: "#{@pokemon_products.prod_name} image" %>
+            <h2 class="pokemon-name"><%= @pokemon_products.prod_name.gsub('-', ' ') %></h2>
+            <p><%= link_to @pokemon_categories.cat_name, @pokemon_categories %></p>
+        </div>
+    </div>
