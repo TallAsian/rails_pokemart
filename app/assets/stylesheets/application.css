@@ -190,5 +190,20 @@
 .pagination .previous,
 .pagination .next {
   background-color: #ddd;
-  color: #333;
+  color: rgb(240, 236, 236)fff;
+}
+.filter-buttons {
+  margin-bottom: 10px;
+}
+
+.filter-button {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-right: 10px;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  background-color: #ffffff; /* You can adjust the color as needed */
+  border-radius: 5px;
+  font-weight: bold;
+  outline: 2px solid #000000;
 }
