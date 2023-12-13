@@ -35,4 +35,12 @@ class ProductsController < ApplicationController
                               .per(30)
     render :index
   end
+  def add_to_cart
+    @pokemon_products = Product.find(params[:id])
+    @pokemon_products.add_to_cart(session)
+    redirect_to products_path, notice: 'Product added to cart!'
+  end
+  def cart
+    @cart_items = session[:cart].present? ? Product.where(id: session[:cart]) : []
+  end
 end

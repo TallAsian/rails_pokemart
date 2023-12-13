@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
+  get 'cart/index'
   get 'categories/index'
   get 'categories/show'
   root 'products#index'
   get '/about', to: 'about#index'
   get 'products/show'
+  get '/cart', to: 'cart#index'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -21,6 +23,7 @@ Rails.application.routes.draw do
       get "recently_added"
       get "recently_updated"
     end
+    post 'add_to_cart', on: :member
   end
   resources :categories, only: %i[index show]
 end

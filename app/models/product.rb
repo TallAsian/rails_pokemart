@@ -8,6 +8,12 @@ class Product < ApplicationRecord
   validates :prod_name, presence: true, uniqueness: true
   validate :image_presence
 
+  def add_to_cart(session)
+    session[:cart] ||= []
+    session[:cart] << self.id
+    session[:cart].uniq!  # Ensure unique product IDs in the cart
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     ["category_id", "cost", "created_at", "id", "id_value", "prod_name", "updated_at"]
   end

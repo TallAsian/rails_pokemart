@@ -15,5 +15,6 @@
     <div class="pokemon-description">
         <h2 class="pokemon-name">Cost</h2>
         <p>$ <%= number_with_precision(@pokemon_products.cost, precision: 2) %></p>
+        <%= button_to 'Add to Cart', add_to_cart_product_path(@pokemon_products), method: :post, class: 'add-to-cart-button' %>
     </div>
 </div>
