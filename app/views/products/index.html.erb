@@ -5,7 +5,10 @@
     <% @pokemon_products.each do |prod| %>
       <li class="pokemon-name">
         <%= link_to prod do %>
-          <%= render partial: 'products/product', locals: { prod: prod } %>
+          <% if prod.image.attached? %>
+              <%= image_tag prod.image, class: "pokemon-image", alt: "#{prod.prod_name} image" %>
+          <% end %>
+          <%= content_tag :span, prod.prod_name.gsub('-', ' ') %>
         <% end %>
       </li>
     <% end %>

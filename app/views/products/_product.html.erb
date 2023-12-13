@@ -1,4 +1,0 @@
-<% if prod.image.attached? %>
-    <%= image_tag prod.image, class: "pokemon-image", alt: "#{prod.prod_name} image" %>
-<% end %>
-<%= content_tag :span, prod.prod_name.gsub('-', ' '), class: "pokemon-name" %>
