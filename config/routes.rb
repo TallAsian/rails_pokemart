@@ -27,4 +27,10 @@ Rails.application.routes.draw do
     delete 'remove_from_cart/:id', to: 'products#remove_from_cart', on: :member, as: :remove_from_cart
   end
   resources :categories, only: %i[index show]
+  resources :cart, only: [:index, :destroy] do
+    delete :remove_product, on: :member
+  end
+
+  # Add a route for the checkout action
+  get '/checkout', to: 'checkout#new', as: 'checkout'
 end

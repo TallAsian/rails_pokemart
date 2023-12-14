@@ -3,6 +3,8 @@
     <% @cart_items.each do |item| %>
       <%= render partial: 'cart_item', locals: { item: item } %>
     <% end %>
+    
+    <%= link_to 'Checkout', checkout_path, class: 'checkout-button' %>
   <% else %>
     <p>Your shopping cart is empty.</p>
   <% end %>
