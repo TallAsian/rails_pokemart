@@ -6,7 +6,6 @@ class Product < ApplicationRecord
   validates :category_id, presence: true
   validates :cost, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :prod_name, presence: true, uniqueness: true
-  validate :image_presence
 
   def add_to_cart(session)
     session[:cart] ||= []

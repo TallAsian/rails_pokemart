@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_14_044307) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_14_052758) do
   create_table "about_pages", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -89,10 +89,12 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_14_044307) do
   end
 
   create_table "orders", force: :cascade do |t|
+    t.integer "quantity"
+    t.integer "products_id", null: false
+    t.integer "customers_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "quantity"
-    t.integer "products_id"
+    t.index ["customers_id"], name: "index_orders_on_customers_id"
     t.index ["products_id"], name: "index_orders_on_products_id"
   end
 
@@ -107,17 +109,18 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_14_044307) do
   end
 
   create_table "provinces", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "province_name"
+    t.string "prov_name"
     t.decimal "GST"
     t.decimal "PST"
     t.decimal "HST"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "customers", "provinces", column: "provinces_id"
+  add_foreign_key "orders", "customers", column: "customers_id"
   add_foreign_key "orders", "products", column: "products_id"
   add_foreign_key "products", "categories"
 end
