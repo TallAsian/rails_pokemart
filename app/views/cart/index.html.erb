@@ -1,17 +1,9 @@
 <div class="pokemon-container">
   <% if @cart_items.present? %>
     <% @cart_items.each do |item| %>
-      <div class="cart-item">
-        <%= image_tag item.image, class: "cart-item-image", alt: "#{item.prod_name} image" %>
-        <h2 class="cart-item-name"><%= item.prod_name %></h2>
-        <p>$ <%= number_with_precision(item.cost, precision: 2) %></p>
-        <%= button_to 'Remove', remove_from_cart_product_path(item), method: :delete, class: 'remove-from-cart-button' %>
-      </div>
+      <%= render partial: 'cart_item', locals: { item: item } %>
     <% end %>
   <% else %>
     <p>Your shopping cart is empty.</p>
   <% end %>
-</div>
-<div class="pagination">
-  <%= paginate @cart_items %>
 </div>

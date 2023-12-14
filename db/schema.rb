@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_12_001030) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_14_035538) do
   create_table "about_pages", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -74,10 +74,30 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_12_001030) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "carts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "quantity"
+    t.integer "products_id"
+    t.string "province_name"
+    t.decimal "GST"
+    t.decimal "PST"
+    t.decimal "HST"
+    t.index ["products_id"], name: "index_carts_on_products_id"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string "cat_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string "cust_name"
+    t.integer "provinces_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provinces_id"], name: "index_customers_on_provinces_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -90,7 +110,14 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_12_001030) do
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
+  create_table "provinces", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "carts", "products", column: "products_id"
+  add_foreign_key "customers", "provinces", column: "provinces_id"
   add_foreign_key "products", "categories"
 end
