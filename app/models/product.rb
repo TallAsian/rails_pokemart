@@ -7,10 +7,12 @@ class Product < ApplicationRecord
   validates :cost, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :prod_name, presence: true, uniqueness: true
 
-  def add_to_cart(session)
+  def add_to_cart(session, product_id, quantity)
     session[:cart] ||= []
     session[:cart] << self.id
     session[:cart].uniq!  # Ensure unique product IDs in the cart
+    session[:quantity] ||= {}
+    session[:quantity][product_id] = quantity
   end
 
   def self.ransackable_attributes(auth_object = nil)

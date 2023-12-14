@@ -1,6 +1,14 @@
 <div class="cart-item">
   <%= image_tag item.image, class: "cart-item-image", alt: "#{item.prod_name} image" %>
   <h2 class="cart-item-name"><%= item.prod_name %></h2>
-  <p>$ <%= number_with_precision(item.cost, precision: 2) %></p>
+  <p>$ <%= number_with_precision(item.cost * session[:quantity][item.id.to_s].to_i, precision: 2) %></p>
+  
+  <p>Quantity: <%= session[:quantity][item.id.to_s].to_i %></p>
+  <%= form_tag(update_cart_product_path(item), method: :patch, class: 'update-cart-form') do %>
+    <%= label_tag 'Quantity:' %>
+    <%= text_field_tag 'quantity', session[:quantity][item.id.to_s].to_i, class: 'quantity-input', type: 'number', min: 1 %>
+    <%= submit_tag 'Update', class: 'update-cart-button' %>
+  <% end %>
+  
   <%= button_to 'Remove', remove_from_cart_product_path(item), method: :delete, class: 'remove-from-cart-button' %>
 </div>

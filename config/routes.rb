@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   get 'categories/show'
   root 'products#index'
   get '/about', to: 'about#index'
-  get 'products/show'
   get '/cart', to: 'cart#index'
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -27,10 +26,10 @@ Rails.application.routes.draw do
     delete 'remove_from_cart/:id', to: 'products#remove_from_cart', on: :member, as: :remove_from_cart
   end
   resources :categories, only: %i[index show]
-  resources :cart, only: [:index, :destroy] do
-    delete :remove_product, on: :member
+  resources :products, only: [:update] do
+    patch 'update_cart/:id', to: 'products#update_cart', on: :member, as: :update_cart
   end
-
+  
   # Add a route for the checkout action
   get '/checkout', to: 'checkout#new', as: 'checkout'
 end
