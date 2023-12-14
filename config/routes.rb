@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       get "recently_updated"
     end
     post 'add_to_cart', on: :member
+    delete 'remove_from_cart/:id', to: 'products#remove_from_cart', on: :member, as: :remove_from_cart
   end
   resources :categories, only: %i[index show]
 end

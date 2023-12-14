@@ -43,4 +43,9 @@ class ProductsController < ApplicationController
   def cart
     @cart_items = session[:cart].present? ? Product.where(id: session[:cart]) : []
   end
+  def remove_from_cart
+    @pokemon_product = Product.find(params[:id])
+    session[:cart].delete(@pokemon_product.id)
+    redirect_to cart_path, notice: 'Product removed from cart!'
+  end
 end

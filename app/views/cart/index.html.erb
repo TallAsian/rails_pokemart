@@ -5,6 +5,7 @@
         <%= image_tag item.image, class: "cart-item-image", alt: "#{item.prod_name} image" %>
         <h2 class="cart-item-name"><%= item.prod_name %></h2>
         <p>$ <%= number_with_precision(item.cost, precision: 2) %></p>
+        <%= button_to 'Remove', remove_from_cart_product_path(item), method: :delete, class: 'remove-from-cart-button' %>
       </div>
     <% end %>
   <% else %>
@@ -12,5 +13,5 @@
   <% end %>
 </div>
 <div class="pagination">
-    <%= paginate @cart_items %>
+  <%= paginate @cart_items %>
 </div>
