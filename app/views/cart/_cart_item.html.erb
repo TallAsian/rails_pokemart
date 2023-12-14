@@ -5,8 +5,7 @@
   
   <p>Quantity: <%= session[:quantity][item.id.to_s].to_i %></p>
   <%= form_tag(update_cart_product_path(item), method: :patch, class: 'update-cart-form') do %>
-    <%= label_tag 'Quantity:' %>
-    <%= text_field_tag 'quantity', session[:quantity][item.id.to_s].to_i, class: 'quantity-input', type: 'number', min: 1 %>
+    <%= text_field_tag 'quantity', session[:quantity][item.id.to_s].to_i, class: "search-input", type: 'number', min: 1 %>
     <%= submit_tag 'Update', class: 'update-cart-button' %>
   <% end %>
   

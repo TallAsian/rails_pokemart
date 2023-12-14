@@ -32,4 +32,8 @@ Rails.application.routes.draw do
   
   # Add a route for the checkout action
   get '/checkout', to: 'checkout#index', as: 'checkout'
+  resources :checkout do
+    post 'confirm_checkout', on: :collection
+  end
+  get 'checkout/success', to: 'checkout#success', as: 'checkout_success'
 end

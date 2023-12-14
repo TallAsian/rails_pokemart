@@ -1,8 +1,6 @@
 <h1>Invoice</h1>
 <div class="invoice">
   <!-- Add input field for province_name -->
-  <label for="province_name">Province Name:</label>
-  <input type="text" id="province_name" name="province_name" />
 
   <% if @cart_items.present? %>
     <% @cart_items.each do |item| %>
@@ -18,21 +16,21 @@
           <p>$ <%= number_with_precision(item.cost * session[:quantity][item.id.to_s].to_i, precision: 2) %></p>
         </div>
         <div class="item-details">
-          <!-- Display taxes here -->
-          <p>Taxes:
-            <% if item.tax_details.present? %>
-              HST: $<%= number_with_precision(item.tax_details[:hst], precision: 2) %> |
-              PST: $<%= number_with_precision(item.tax_details[:pst], precision: 2) %> |
-              GST: $<%= number_with_precision(item.tax_details[:gst], precision: 2) %>
-            <% else %>
-              Not applicable
-            <% end %>
-          </p>
-        </div>
-        <div class="item-details">
-          <p>Total Cost with Taxes: $<%= number_with_precision(item.total_cost_with_taxes, precision: 2) %></p>
+          <% if @province.present? %>
+            <p>Total Cost for <%= @province.prov_name %>: $<%= number_with_precision((item.cost * session[:quantity][item.id.to_s].to_i) * (1 + @province.HST + @province.GST + @province.PST), precision: 2) %></p>
+          <% else %>
+            <p>No province information available.</p>
+          <% end %>
         </div>
       </div>
     <% end %>
   <% end %>
+  <%= form_tag({controller: 'checkout', action: 'index'}, method: 'get') do %>
+    <label for="province_name">Province Name:</label>
+    <input type="text" id="province_name" class= "search-input" name="province_name" />
+    <input type="submit" value="Submit Province" />
+  <% end %>
+
 </div>
+
+
