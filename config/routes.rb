@@ -31,5 +31,5 @@ Rails.application.routes.draw do
   end
   
   # Add a route for the checkout action
-  get '/checkout', to: 'checkout#new', as: 'checkout'
+  get '/checkout', to: 'checkout#index', as: 'checkout'
 end

@@ -10,9 +10,11 @@ require 'csv'
 #   end
 # AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
+Province.delete_all
 Product.delete_all
 Category.delete_all
 
+ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='provinces';")
 ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='products';")
 ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='categories';")
 
@@ -32,12 +34,31 @@ pokemon_categories = CSV.parse(csv_cat, headers: true, encoding: "utf-8")
 pokemon_products = CSV.parse(csv_prod, headers: true, encoding: "utf-8")
 pokemon_desc = CSV.parse(csv_desc, headers: true, encoding: "utf-8")
 
+provinces_data = [
+  { prov_name: 'Alberta', GST: 0.05, PST: 0.0, HST: 0.0 },
+  { prov_name: 'British Columbia', GST: 0.05, PST: 0.07, HST: 0.0 },
+  { prov_name: 'Manitoba', GST: 0.05, PST: 0.08, HST: 0.0 },
+  { prov_name: 'New Brunswick', GST: 0.05, PST: 0.10, HST: 0.0 },
+  { prov_name: 'Newfoundland and Labrador', GST: 0.05, PST: 0.10, HST: 0.0 },
+  { prov_name: 'Nova Scotia', GST: 0.05, PST: 0.10, HST: 0.0 },
+  { prov_name: 'Ontario', GST: 0.05, PST: 0.08, HST: 0.0 },
+  { prov_name: 'Prince Edward Island', GST: 0.05, PST: 0.10, HST: 0.0 },
+  { prov_name: 'Quebec', GST: 0.05, PST: 0.09975, HST: 0.0 },
+  { prov_name: 'Saskatchewan', GST: 0.05, PST: 0.06, HST: 0.0 },
+  { prov_name: 'Northwest Territories', GST: 0.05, PST: 0.0, HST: 0.0 },
+  { prov_name: 'Nunavut', GST: 0.05, PST: 0.0, HST: 0.0 },
+  { prov_name: 'Yukon', GST: 0.05, PST: 0.0, HST: 0.0 },
+]
+
+provinces_data.each do |province|
+  Province.create(province)
+end
+
 pokemon_categories.each do |p|
 
     poke_cat =  Category.create(
         cat_name: p["identifier"]
     )
-
     
 end
 
@@ -70,3 +91,5 @@ pokemon_products.each do |p|
 
   sleep(1)
 end
+
+
