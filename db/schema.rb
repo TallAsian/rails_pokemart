@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_12_001030) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_15_180801) do
   create_table "about_pages", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -80,6 +80,29 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_12_001030) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "customers", force: :cascade do |t|
+    t.string "cust_name"
+    t.integer "provinces_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "email"
+    t.string "encrypted_password"
+    t.datetime "remember_created_at"
+    t.index ["provinces_id"], name: "index_customers_on_provinces_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "quantity"
+    t.integer "products_id", null: false
+    t.integer "customers_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.decimal "total_cost", precision: 10, scale: 2
+    t.decimal "taxes", precision: 10, scale: 2
+    t.index ["customers_id"], name: "index_orders_on_customers_id"
+    t.index ["products_id"], name: "index_orders_on_products_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "prod_name"
     t.float "cost"
@@ -90,7 +113,19 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_12_001030) do
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
+  create_table "provinces", force: :cascade do |t|
+    t.string "prov_name"
+    t.decimal "GST"
+    t.decimal "PST"
+    t.decimal "HST"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "customers", "provinces", column: "provinces_id"
+  add_foreign_key "orders", "customers", column: "customers_id"
+  add_foreign_key "orders", "products", column: "products_id"
   add_foreign_key "products", "categories"
 end

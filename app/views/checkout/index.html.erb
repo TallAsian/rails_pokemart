@@ -1,0 +1,39 @@
+<h1>Invoice</h1>
+<div class="invoice">
+  <!-- Add input field for province_name -->
+  <% if @province.present? %>
+    <h1>Province: <%= @province.prov_name %></h1>
+  <% else %>
+    <h1>Province: None</h1>
+  <% end %>
+  <% if @cart_items.present? %>
+    <% total_cost = 0 %>
+    <% @cart_items.each do |item| %>
+      <div class="invoice-item">
+        <div class="item-details">
+          <%= image_tag item.image, class: "invoice-item-image", alt: "#{item.prod_name} image" %>
+          <h2 class="invoice-item-name"><%= item.prod_name %></h2>
+        </div>
+        <div class="item-details">
+          <p>Quantity: <%= session[:quantity][item.id.to_s].to_i %></p>
+        </div>
+        <div class="item-details">
+          <p>Cost: $ <%= number_with_precision(item.cost * session[:quantity][item.id.to_s].to_i, precision: 2) %></p>
+        </div>
+        <div class="item-details">
+          <% if @province.present? %>
+            <p>Tax: $<%= number_with_precision((item.cost * session[:quantity][item.id.to_s].to_i) * (1 + @province.HST + @province.GST + @province.PST) - (item.cost * session[:quantity][item.id.to_s].to_i), precision: 2) %></p>
+            <% total_cost += (item.cost * session[:quantity][item.id.to_s].to_i) * (1 + @province.HST + @province.GST + @province.PST) %>
+          <% else %>
+            <p>No province information available.</p>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Display total at the bottom -->
+    <div class="invoice-total">
+      <h2>Total Cost for All Products: $<%= number_with_precision(total_cost, precision: 2) %></h2>
+    </div>
+  <% end %>
+</div>

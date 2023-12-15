@@ -3,16 +3,25 @@
 <div class="pokemon-container">
   <div class="grid-container">
     <div class="pokemon-description">
-      <%= render partial: 'products/product', locals: { prod: @pokemon_products } %>
+      <%= image_tag @pokemon_products.image, class: "pokemon-image", alt: "#{@pokemon_products.prod_name} image" %>
+      <h2 class="pokemon-name"><%= @pokemon_products.prod_name.gsub('-', ' ') %></h2>
       <p><%= link_to @pokemon_categories.cat_name, @pokemon_categories %></p>
     </div>
   </div>
+
   <div class="pokemon-description">
-    <h2 class="pokemon-name">Description</h2>
+    <h2 class="pokemon-name">description</h2>
     <p><%= @pokemon_products.description %></p>
   </div>
+
   <div class="pokemon-description">
     <h2 class="pokemon-name">Cost</h2>
     <p>$ <%= number_with_precision(@pokemon_products.cost, precision: 2) %></p>
+
+    <%= form_tag(add_to_cart_product_path(@pokemon_products), method: :post, class: 'add-to-cart-form') do %>
+      <%= label_tag 'Quantity:' %>
+      <%= number_field_tag :quantity, 1, min: 1, class: 'quantity-input' %>
+      <%= submit_tag 'Add to Cart', class: 'add-to-cart-button' %>
+    <% end %>
   </div>
 </div>

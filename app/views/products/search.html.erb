@@ -1,16 +1,19 @@
 <h1>Search results for: <%= params[:keywords] %></h1>
 
 <div>
-  <ol class="pokemon-container">
-    <% @pokemon_products.each do |prod| %>
-      <li class="pokemon-name">
-        <%= link_to prod do %>
-          <%= render partial: 'products/product', locals: { prod: prod } %>
+    <ol class="pokemon-container">
+        <% @pokemon_products.each do |prod| %>
+            <li class="pokemon-name">
+                <%= link_to (prod) do %>
+                    <% if prod.image.attached? %>
+                        <%= image_tag prod.image, class: "pokemon-image", alt: "#{prod.prod_name} image" %>
+                    <% end %>
+                    <%= prod.prod_name.gsub('-', ' ') %>
+                <% end %>
+            </li>
         <% end %>
-      </li>
-    <% end %>
-  </ol>
-  <div class="pagination">
-    <%= paginate @pokemon_products %>
-  </div>
+    </ol>
+    <div class="pagination">
+        <%= paginate @pokemon_products %>
+    </div>
 </div>

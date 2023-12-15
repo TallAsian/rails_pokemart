@@ -11,29 +11,42 @@
   </head>
 
   <body>
-    <h1 class="header"> Rails Pokemart </h1>
-    <div class="navbar-container">
-      <div class="navbar">
-        <ul>
-          <li><%= link_to "Home", products_path %></li>
-          <li><%= link_to "About", about_path %></li>
-          <li><%= link_to "Products" %></li>
-          <li><%= link_to "Categories", categories_path %></li>
-          <li><%= link_to "Log In", new_admin_user_session_path%></li>          
-      </ul>
+    <div id="main-content" data-turbo-frame="_top">
+      <% if flash[:notice] %>
+        <div class="flash-notice"><%= flash[:notice] %></div>
+      <% end %>
+      <h1 class="header"> Rails Pokemart </h1>
+      <div class="navbar-container">
+        <div class="navbar">
+          <ul>
+            <li><%= link_to "Home", products_path %></li>
+            <li><%= link_to "About", about_path %></li>
+            <li><%= link_to "Categories", categories_path %></li>
+            <li><%= link_to "Cart", cart_path %></li>
+            <% if customer_signed_in? %>
+              <li><%= link_to "My Account", edit_customer_registration_path %></li>
+              <li><%= link_to 'Orders',  orders_path %></li>
+              <li><%= link_to "Sign Out", destroy_customer_session_path, method: :delete, 'data-turbo-method': :delete %></li>
+            <% else %>
+              <li><%= link_to 'Sign Up', new_customer_registration_path %></li>
+              <li><%= link_to 'Sign In', new_customer_session_path %></li>
+            <% end %>
+            <li><%= link_to "Admin", new_admin_user_session_path%></li>          
+          </ul>
+        </div>
       </div>
+      <div class="search">
+        <%= form_with(url: search_products_path, method: :get, local: true) do %>
+          <%= text_field_tag(:keywords, nil, class: "search-input", placeholder: "Search item") %>
+          <%= collection_select(:search, :cat_id, Category.all, :id, :cat_name, { prompt: "Select category" }, class: "search-dropdown") %>
+          <%= submit_tag("Search", class: "search-button") %>
+        <% end %>  
+      </div>
+      <div class="filter-buttons">
+        <%= link_to "Recently Added", recently_added_products_path, class: "filter-button" %>
+        <%= link_to "Recently Updated", recently_updated_products_path, class: "filter-button" %>
+      </div>
+      <%= yield %>
     </div>
-    <div class="search">
-      <%= form_with(url: search_products_path, method: :get, local: true) do %>
-        <%= text_field_tag(:keywords, nil, class: "search-input", placeholder: "Search item") %>
-        <%= collection_select(:search, :cat_id, Category.all, :id, :cat_name, { prompt: "Select category" }, class: "search-dropdown") %>
-        <%= submit_tag("Search", class: "search-button") %>
-      <% end %>  
-    </div>
-    <div class="filter-buttons">
-      <%= link_to "Recently Added", recently_added_products_path, class: "filter-button" %>
-      <%= link_to "Recently Updated", recently_updated_products_path, class: "filter-button" %>
-    </div>
-    <%= yield %>
   </body>
 </html>

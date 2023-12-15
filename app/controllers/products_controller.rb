@@ -35,4 +35,26 @@ class ProductsController < ApplicationController
                               .per(30)
     render :index
   end
+  def add_to_cart
+    @pokemon_products = Product.find(params[:id])
+    quantity = params[:quantity].to_i
+    @pokemon_products.add_to_cart(session, @pokemon_products.id, quantity)
+    redirect_to products_path
+    flash[:notice] = "Product added to the cart successfully!"
+  end
+  def cart
+    @cart_items = session[:cart].present? ? Product.where(id: session[:cart]) : []
+  end
+  def remove_from_cart
+    @pokemon_product = Product.find(params[:id])
+    session[:cart].delete(@pokemon_product.id)
+    redirect_to cart_path, notice: 'Product removed from cart!'
+  end
+  def update_cart
+    @pokemon_product = Product.find(params[:id])
+    quantity = params[:quantity].to_i
+    session[:quantity][@pokemon_product.id.to_s] = quantity
+    redirect_to cart_path, notice: 'Cart updated!'
+  end
+  
 end

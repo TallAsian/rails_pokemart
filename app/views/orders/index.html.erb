@@ -1,0 +1,42 @@
+<h1>Your Orders</h1>
+
+<div class="pokemon-container">
+  <% if @orders.present? %>
+    <% grouped_orders = @orders.group_by { |order| order.created_at.to_i } %>
+    
+    <% grouped_orders.each do |created_at, orders| %>
+      <div class="order-group">
+        <h2>Orders Placed on <%= orders.first.created_at.strftime('%Y-%m-%d %H:%M:%S') %></h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th class="table-header">Product</th>
+              <th class="table-header">Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% group_taxes = 0 %>
+            <% group_total = 0 %>
+            <% orders.each do |order| %>
+              <tr>
+                <td><%= order.product.prod_name %></td>
+                <td><%= order.quantity %></td>
+              </tr>
+
+              <% group_taxes += order.taxes %>
+              <% group_total += order.total_cost %>
+            <% end %>
+          </tbody>
+        </table>
+
+        <div class="group-total">
+          <p>Taxes: <%= group_taxes %></p>
+          <p>Total: <%= group_total %></p>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p>You have no orders yet.</p>
+  <% end %>
+</div>

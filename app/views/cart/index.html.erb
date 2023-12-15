@@ -1,0 +1,18 @@
+<div class="pokemon-container">
+  <% if @cart_items.present? %>
+    <% @cart_items.each do |item| %>
+      <%= render partial: 'cart_item', locals: { item: item } %>
+    <% end %>
+  <% else %>
+    <p>Your shopping cart is empty.</p>
+  <% end %>
+</div>
+<% if customer_signed_in? %>
+  <%= link_to 'Checkout', checkout_path, class: 'checkout-button button-style' %>
+<% else %>
+  <%= form_tag({controller: 'checkout', action: 'index'}, method: 'get') do %>
+    <label for="province_name">Province Name:</label>
+    <input type="text" id="province_name" class="search-input" name="province_name" />
+    <input type="submit" value="Checkout" class= 'checkout-button button-style' />
+  <% end %>
+<%end%>
