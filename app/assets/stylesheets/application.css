@@ -60,7 +60,9 @@
     grid-template-columns: repeat(3, 1fr);
     text-align: center;
   }
-
+  .centered-div {
+    text-align: center; /* Optional: Center text within the div */
+  }
   .pokemon-image {
     max-width: 100%;
     height: 50px;

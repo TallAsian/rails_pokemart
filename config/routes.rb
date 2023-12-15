@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/cart', to: 'cart#index'
   get '/checkout', to: 'checkout#index', as: 'checkout'
   get '/checkout/success', to: 'checkout#success', as: 'success_path'
+  devise_for :customers
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

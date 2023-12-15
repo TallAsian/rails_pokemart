@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_14_052758) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_15_061535) do
   create_table "about_pages", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -85,6 +85,9 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_14_052758) do
     t.integer "provinces_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
+    t.string "encrypted_password"
+    t.datetime "remember_created_at"
     t.index ["provinces_id"], name: "index_customers_on_provinces_id"
   end
 
