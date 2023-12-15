@@ -36,11 +36,4 @@
       <h2>Total Cost for All Products: $<%= number_with_precision(total_cost, precision: 2) %></h2>
     </div>
   <% end %>
-  <% if !@province.present? %>
-    <%= form_tag({controller: 'checkout', action: 'index'}, method: 'get') do %>
-      <label for="province_name">Province Name:</label>
-      <input type="text" id="province_name" class="search-input" name="province_name" />
-      <input type="submit" value="Confirm Purchase" />
-    <% end %>
-  <%end%>
 </div>

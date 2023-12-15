@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get '/about', to: 'about#index'
   get '/cart', to: 'cart#index'
   get '/checkout', to: 'checkout#index', as: 'checkout'
-  get '/checkout/success', to: 'checkout#success', as: 'success_path'
+  get '/checkout/success', to: 'checkout#success', as: 'checkout_success'
   devise_for :customers
 
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   end
 
   resources :categories, only: %i[index show]
-
+  resources :orders, only: [:index]
   resources :checkout, only: [] do
     post 'confirm_checkout', on: :collection
   end
