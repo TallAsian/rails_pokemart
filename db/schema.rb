@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_15_061535) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_15_180801) do
   create_table "about_pages", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -97,6 +97,8 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_15_061535) do
     t.integer "customers_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "total_cost", precision: 10, scale: 2
+    t.decimal "taxes", precision: 10, scale: 2
     t.index ["customers_id"], name: "index_orders_on_customers_id"
     t.index ["products_id"], name: "index_orders_on_products_id"
   end

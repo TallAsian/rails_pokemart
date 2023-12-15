@@ -15,10 +15,14 @@ class CheckoutController < ApplicationController
         # Create a new customer with a random hash and associate with the province
         if customer_signed_in?
           @cart_items.each do |item|
+            total_cost = item.cost * session[:quantity][item.id.to_s].to_i 
+            taxes = (total_cost * (1 + @province.HST + @province.GST + @province.PST)) - total_cost
             order = Order.create(
               customers_id: current_customer.id.to_i,
               products_id: item.id.to_i,
-              quantity: session[:quantity][item.id.to_s].to_i
+              quantity: session[:quantity][item.id.to_s].to_i,
+              taxes: taxes,
+              total_cost: total_cost
             )
           end
         else
@@ -43,10 +47,14 @@ class CheckoutController < ApplicationController
           
           # Loop through cart items to create orders for each item
             @cart_items.each do |item|
+                total_cost = item.cost * session[:quantity][item.id.to_s].to_i 
+                taxes = (total_cost * (1 + @province.HST + @province.GST + @province.PST)) - total_cost
                 order = Order.create(
                 customers_id: customer.id.to_i,
                 products_id: item.id.to_i,
-                quantity: session[:quantity][item.id.to_s].to_i
+                quantity: session[:quantity][item.id.to_s].to_i,
+                taxes: taxes,
+                total_cost: total_cost
                 )
             end
         end

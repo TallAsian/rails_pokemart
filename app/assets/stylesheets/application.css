@@ -271,6 +271,7 @@
   border-radius: 5px; /* Add rounded corners */
   font-weight: bold;  /* Make the text bold */
 }
-
-/* Add any additional styling as needed */
-
+.table-header {
+  background-color: #000;
+  color: #fff;
+}
