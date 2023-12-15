@@ -1,0 +1,16 @@
+<h1>Pokemart Products</h1>
+
+<div>
+  <ol class="pokemon-container">
+    <% @pokemon_products.each do |prod| %>
+      <li class="pokemon-name">
+        <%= link_to prod do %>
+          <%= render partial: 'products/product', locals: { prod: prod } %>
+        <% end %>
+      </li>
+    <% end %>
+  </ol>
+  <div class="pagination">
+    <%= paginate @pokemon_products %>
+  </div>
+</div>

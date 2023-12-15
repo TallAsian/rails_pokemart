@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  get 'categories/index'
+  get 'categories/show'
+  root 'products#index'
+  get '/about', to: 'about#index'
+  get 'products/show'
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -7,4 +14,13 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  resources :products, only: %i[index show] do
+    collection do
+      get "search"
+      get "recently_added"
+      get "recently_updated"
+    end
+  end
+  resources :categories, only: %i[index show]
 end

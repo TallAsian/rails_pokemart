@@ -1,0 +1,18 @@
+<h1><%= @pokemon_category.cat_name %></h1>
+<div>
+    <ol class="pokemon-container">
+        <% @pokemon_products.each do |prod| %>
+            <li class="pokemon-name">
+                <%= link_to (prod) do %>
+                    <% if prod.image.attached? %>
+                        <%= image_tag prod.image, class: "pokemon-image", alt: "#{prod.prod_name} image" %>
+                    <% end %>
+                    <%= prod.prod_name.gsub('-', ' ') %>
+                <% end %>
+            </li>
+        <% end %>
+    </ol>
+    <div class="pagination">
+        <%= paginate @pokemon_products %>
+    </div>
+</div>

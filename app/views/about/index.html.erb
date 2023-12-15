@@ -1,0 +1,10 @@
+<!-- app/views/about/index.html.erb -->
+<div class="about-container">
+    <h1>About</h1>
+    <%= @about_page.content.html_safe if @about_page %>
+    
+    <h2>Contact Us</h2>
+    <p>You can email us at: <%= @about_page.email.html_safe if @about_page %></p>
+    <p>You can call us at: <%= @about_page.phone_number.html_safe if @about_page %></p>
+    <p>You can visit us at: <%= @about_page.address.html_safe if @about_page %>
+</div>
