@@ -28,7 +28,10 @@
   <%= form_tag({controller: 'checkout', action: 'index'}, method: 'get') do %>
     <label for="province_name">Province Name:</label>
     <input type="text" id="province_name" class= "search-input" name="province_name" />
-    <input type="submit" value="Submit Province" />
+    <input type="submit" value="Set Province" />
+  <% end %>
+  <%= form_tag({ controller: 'checkout', action: 'confirm_checkout' }, method: 'get') do %>
+    <%= submit_tag 'Confirm Checkout', class: 'checkout-button button-style' %>
   <% end %>
 
 </div>
