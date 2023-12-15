@@ -10,12 +10,17 @@ require 'csv'
 #   end
 # AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
-Province.delete_all
+Order.delete_all
+Customer.delete_all
 Product.delete_all
+Provinces.delete_all
 Category.delete_all
 
-ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='provinces';")
+
+ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='orders';")
+ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='customers';")
 ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='products';")
+ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='provinces';")
 ActiveRecord::Base.connection.execute("DELETE FROM sqlite_sequence WHERE name='categories';")
 
 categories = Rails.root.join('db/item_categories.csv')
