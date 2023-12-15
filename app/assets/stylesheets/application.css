@@ -255,3 +255,20 @@
   outline: 2px solid #000000;
   margin-top: 30px;
 }
+/* app/assets/stylesheets/application.css */
+
+.flash-notice-container {
+  text-align: center; /* Center the flash notice */
+  padding: 10px;      /* Add padding for better visibility */
+}
+
+.flash-notice {
+  color: white;       /* Text color */
+  background-color: #28a745; /* Background color (green in this example, you can change it) */
+  padding: 15px;      /* Padding inside the flash notice */
+  border-radius: 5px; /* Add rounded corners */
+  font-weight: bold;  /* Make the text bold */
+}
+
+/* Add any additional styling as needed */
+

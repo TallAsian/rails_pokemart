@@ -11,13 +11,15 @@
   </head>
 
   <body>
+    <% if flash[:notice] %>
+      <div class="flash-notice"><%= flash[:notice] %></div>
+    <% end %>
     <h1 class="header"> Rails Pokemart </h1>
     <div class="navbar-container">
       <div class="navbar">
         <ul>
           <li><%= link_to "Home", products_path %></li>
           <li><%= link_to "About", about_path %></li>
-          <li><%= link_to "Products" %></li>
           <li><%= link_to "Categories", categories_path %></li>
           <li><%= link_to "Cart", cart_path %></li>
           <li><%= link_to "Log In", new_admin_user_session_path%></li>          
