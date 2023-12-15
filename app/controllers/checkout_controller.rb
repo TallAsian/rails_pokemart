@@ -26,7 +26,6 @@ class CheckoutController < ApplicationController
               )
               end
         
-            redirect_to success_path_url # Redirect to a success page or another relevant action
         end
         
 

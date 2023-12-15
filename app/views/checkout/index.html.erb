@@ -1,8 +1,13 @@
 <h1>Invoice</h1>
 <div class="invoice">
   <!-- Add input field for province_name -->
-
+  <% if @province.present? %>
+    <h1>Province: <%= @province.prov_name %></h1>
+  <% else %>
+    <h1>Province: None</h1>
+  <% end %>
   <% if @cart_items.present? %>
+    <% total_cost = 0 %>
     <% @cart_items.each do |item| %>
       <div class="invoice-item">
         <div class="item-details">
@@ -13,17 +18,29 @@
           <p>Quantity: <%= session[:quantity][item.id.to_s].to_i %></p>
         </div>
         <div class="item-details">
-          <p>$ <%= number_with_precision(item.cost * session[:quantity][item.id.to_s].to_i, precision: 2) %></p>
+          <p>Cost: $ <%= number_with_precision(item.cost * session[:quantity][item.id.to_s].to_i, precision: 2) %></p>
+        </div>
+        <div class="item-details">
+          <% if @province.present? %>
+            <p>Tax: $<%= number_with_precision((item.cost * session[:quantity][item.id.to_s].to_i) * (1 + @province.HST + @province.GST + @province.PST) - (item.cost * session[:quantity][item.id.to_s].to_i), precision: 2) %></p>
+            <% total_cost += (item.cost * session[:quantity][item.id.to_s].to_i) * (1 + @province.HST + @province.GST + @province.PST) %>
+          <% else %>
+            <p>No province information available.</p>
+          <% end %>
         </div>
       </div>
     <% end %>
-  <% end %>
-  <%= form_tag({controller: 'checkout', action: 'index'}, method: 'get') do %>
-    <label for="province_name">Province Name:</label>
-    <input type="text" id="province_name" class= "search-input" name="province_name" />
-    <input type="submit" value="Confirm Purchase" />
-  <% end %>
 
+    <!-- Display total at the bottom -->
+    <div class="invoice-total">
+      <h2>Total Cost for All Products: $<%= number_with_precision(total_cost, precision: 2) %></h2>
+    </div>
+  <% end %>
+  <% if !@province.present? %>
+    <%= form_tag({controller: 'checkout', action: 'index'}, method: 'get') do %>
+      <label for="province_name">Province Name:</label>
+      <input type="text" id="province_name" class="search-input" name="province_name" />
+      <input type="submit" value="Confirm Purchase" />
+    <% end %>
+  <%end%>
 </div>
-
-
